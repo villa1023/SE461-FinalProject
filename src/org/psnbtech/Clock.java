@@ -137,5 +137,28 @@ public class Clock {
 	private static final long getCurrentTime() {
 		return (System.nanoTime() / 1000000L);
 	}
+	
+	/**
+	 * Setters & Getters
+	 */
+	public float getMillsPerCycle() {
+		return this.millisPerCycle;
+	}
+	
+	public long getLastUpdate() {
+		return this.lastUpdate;
+	}
+	
+	public int getElapsedCycles() {
+		return this.elapsedCycles;
+	}
+	
+	public float getExcessCycles() {
+		return this.excessCycles;
+	}
+	
+	public boolean getIsPaused() {
+		return this.isPaused;
+	}
 
 }
