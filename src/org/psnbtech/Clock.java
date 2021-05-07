@@ -8,6 +8,9 @@ package org.psnbtech;
  */
 public class Clock {
 	
+	public static boolean USE_FIXED_TIME_FOR_TESTING = false;
+	public static long FIXED_TIME_FOR_TESTING = 30714185;
+	
 	/**
 	 * The number of milliseconds that make up one cycle.
 	 */
@@ -134,8 +137,8 @@ public class Clock {
 	 * {@code System.nanoTime()}.
 	 * @return The current time in milliseconds.
 	 */
-	private static final long getCurrentTime() {
-		return (System.nanoTime() / 1000000L);
+	public static final long getCurrentTime() {
+		return USE_FIXED_TIME_FOR_TESTING ? FIXED_TIME_FOR_TESTING :(System.nanoTime() / 1000000L);
 	}
 	
 	/**
@@ -157,8 +160,20 @@ public class Clock {
 		return this.excessCycles;
 	}
 	
-	public boolean getIsPaused() {
-		return this.isPaused;
+	public void setElapsedCycles(int elapsedCycles) {
+		this.elapsedCycles = elapsedCycles;
+	}
+	
+	public void setExcessCycles(float excessCycles) {
+		this.excessCycles =  excessCycles;
+	}
+	
+	public void setMillsPerCycle(float millsPerCycle) {
+		this.millisPerCycle = millsPerCycle;
+	}
+	
+	public void setLastUpdate(long lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 }
