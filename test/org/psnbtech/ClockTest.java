@@ -86,7 +86,7 @@ class ClockTest {
 	}
 	
 	@Test
-	void testElapsedCycles() {
+	void testHasElapsedCycles() {
 		final int ELAPSED_CYCLES_INPUT = 1;
 		clock.setElapsedCycles(ELAPSED_CYCLES_INPUT);
 		

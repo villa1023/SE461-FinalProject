@@ -209,7 +209,7 @@ public enum TileType {
 	/**
 	 * The column that this type spawns in.
 	 */
-	private int spawnCol;
+	public int spawnCol;
 	
 	/**
 	 * The row that this type spawns in.
@@ -219,7 +219,7 @@ public enum TileType {
 	/**
 	 * The dimensions of the array for this piece.
 	 */
-	private int dimension;
+	public int dimension;
 	
 	/**
 	 * The number of rows in this piece. (Only valid when rotation is 0 or 2,
@@ -421,5 +421,5 @@ public enum TileType {
 		}
 		return -1;
 	}
-	
+
 }

@@ -15,6 +15,9 @@ import javax.swing.JFrame;
  */
 public class Tetris extends JFrame {
 	
+	public static boolean TEST_MODE = false;
+	public static int RANDOM_NUMBER_FOR_TEST = 6;
+	
 	/**
 	 * The Serial Version UID.
 	 */
@@ -117,7 +120,7 @@ public class Tetris extends JFrame {
 	 * Creates a new Tetris instance. Sets up the window's properties,
 	 * and adds a controller listener.
 	 */
-	private Tetris() {
+	public Tetris() {
 		/*
 		 * Set the basic properties of the window.
 		 */
@@ -264,7 +267,7 @@ public class Tetris extends JFrame {
 	/**
 	 * Starts the game running. Initializes everything and enters the game loop.
 	 */
-	private void startGame() {
+	public void startGame() {
 		/*
 		 * Initialize our random number generator, logic timer, and new game variables.
 		 */
@@ -313,13 +316,15 @@ public class Tetris extends JFrame {
 					e.printStackTrace();
 				}
 			}
+			
+			if(Tetris.TEST_MODE) break;
 		}
 	}
 	
 	/**
 	 * Updates the game and handles the bulk of it's logic.
 	 */
-	private void updateGame() {
+	public void updateGame() {
 		/*
 		 * Check to see if the piece's position can move down to the next row.
 		 */
@@ -374,7 +379,7 @@ public class Tetris extends JFrame {
 	/**
 	 * Forces the BoardPanel and SidePanel to repaint.
 	 */
-	private void renderGame() {
+	public void renderGame() {
 		board.repaint();
 		side.repaint();
 	}
@@ -383,7 +388,7 @@ public class Tetris extends JFrame {
 	 * Resets the game variables to their default values at the start
 	 * of a new game.
 	 */
-	private void resetGame() {
+	public void resetGame() {
 		this.level = 1;
 		this.score = 0;
 		this.gameSpeed = 1.0f;
@@ -400,7 +405,8 @@ public class Tetris extends JFrame {
 	 * Spawns a new piece and resets our piece's variables to their default
 	 * values.
 	 */
-	private void spawnPiece() {
+	public void spawnPiece() {
+		
 		/*
 		 * Poll the last piece and reset our position and rotation to
 		 * their default variables, then pick the next piece to use.
@@ -409,7 +415,7 @@ public class Tetris extends JFrame {
 		this.currentCol = currentType.getSpawnColumn();
 		this.currentRow = currentType.getSpawnRow();
 		this.currentRotation = 0;
-		this.nextType = TileType.values()[random.nextInt(TYPE_COUNT)];
+		this.nextType = TileType.values()[TEST_MODE ? RANDOM_NUMBER_FOR_TEST : random.nextInt(TYPE_COUNT)];
 		
 		/*
 		 * If the spawn point is invalid, we need to pause the game and flag that we've lost
@@ -425,7 +431,7 @@ public class Tetris extends JFrame {
 	 * Attempts to set the rotation of the current piece to newRotation.
 	 * @param newRotation The rotation of the new peice.
 	 */
-	private void rotatePiece(int newRotation) {
+	public void rotatePiece(int newRotation) {
 		/*
 		 * Sometimes pieces will need to be moved when rotated to avoid clipping
 		 * out of the board (the I piece is a good example of this). Here we store
@@ -507,6 +513,14 @@ public class Tetris extends JFrame {
 	}
 	
 	/**
+	 * Sets the current score
+	 * @param score
+	 */
+	public void setScore(int score) {
+		this.score = score;
+	}
+	
+	/**
 	 * Gets the current level.
 	 * @return The level.
 	 */
@@ -538,6 +552,7 @@ public class Tetris extends JFrame {
 		return currentCol;
 	}
 	
+	
 	/**
 	 * Gets the row of the current piece.
 	 * @return The row.
@@ -553,6 +568,72 @@ public class Tetris extends JFrame {
 	public int getPieceRotation() {
 		return currentRotation;
 	}
+	
+	/** Setters */
+	public void setRandom(Random rand) {
+		this.random = rand;	
+	}
+	
+	public void setCurrentType(TileType type) {
+		this.currentType = type;
+	}
+	
+	public void setNextType(TileType type) {
+		this.nextType = type;
+	}
+	
+	public void setCurrentCol(int num) {
+		this.currentCol = num;
+	}
+	
+	public void setCurrentRow(int num) {
+		this.currentRow = num;
+	}
+	
+	public void setCurrentRotation(int num){
+		this.currentRotation = num;
+	}
+	
+	public int getDropCoolDown() {
+		return this.dropCooldown;
+	}
+	
+	public void setDropCoolDown(int value) {
+		this.dropCooldown = value;
+	}
+	
+	public void setGameSpeed(float num) {
+		this.gameSpeed = num;
+	}
+	
+	public void setLogicTimer(Clock clock) {
+		this.logicTimer = clock;
+	}
+	
+	public Clock getLogicTimer() {
+		return this.logicTimer;
+	}
+	
+	public float getGameSpeed() {
+		return this.gameSpeed;
+	}
+	
+	public BoardPanel getBoardPanel() {
+		return this.board;
+	}
+	
+	public SidePanel getSidePanel() {
+		return this.side;
+	}
+	
+	
+	public Random getRandomNumberGenerator() {
+		return this.random;
+	}
+	
+	public void setIsNewGame(boolean value) {
+		this.isNewGame = value;
+	}
 
 	/**
 	 * Entry-point of the game. Responsible for creating and starting a new
@@ -563,5 +644,4 @@ public class Tetris extends JFrame {
 		Tetris tetris = new Tetris();
 		tetris.startGame();
 	}
-
 }
