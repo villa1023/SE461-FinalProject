@@ -21,7 +21,7 @@ class ClockTest {
 	void tearDown() throws Exception {
 		clock = null;
 	}
-
+	
 	@Test
 	void testClock() {
 		final String assert1Label = "Tests the inital value of millsPerCycle";
@@ -33,7 +33,7 @@ class ClockTest {
 		final float EXPECTED_VALUE_OF_MILLSPERCYCLE = 20;
 		final float EXPECTED_VALUE_OF_ELAPSEDCYCLES = 0.0F;
 		final float EXPECTED_VALUE_OF_EXCESSCYCLES = 0.0F;
-		final long EXPECTED_VALUE_OF_LASTUPDATE = Clock.FIXED_TIME_FOR_TESTING;  // Using a fixed time to simulate current time
+		final long EXPECTED_VALUE_OF_LASTUPDATE = Clock.FIXED_CURRENT_TIME_FOR_TESTING;  // Using a fixed time to simulate current time
 		final boolean EXPECTED_VALUE_OF_ISPAUSED = false;
 		
 		assertEquals(clock.getMillsPerCycle(), EXPECTED_VALUE_OF_MILLSPERCYCLE, assert1Label);
@@ -64,7 +64,7 @@ class ClockTest {
 		
 		final float EXPECTED_VALUE_OF_ELAPSEDCYCLES = 0.0F;
 		final float EXPECTED_VALUE_OF_EXCESSCYCLES = 0.0F;
-		final long EXPECTED_VALUE_OF_LASTUPDATE = Clock.FIXED_TIME_FOR_TESTING;
+		final long EXPECTED_VALUE_OF_LASTUPDATE = Clock.FIXED_CURRENT_TIME_FOR_TESTING;
 		final boolean EXPECTED_VALUE_OF_ISPAUSED = false;
 		
 		clock.reset();        // Method being tested		
@@ -108,37 +108,45 @@ class ClockTest {
 	}
 	
 	@Test
-	void testUpdateWhenGameIsPaused() {
+	void testUpdateWhenGameIsPaused_TR1() {
+		
+		// Preparing Inputs
 		final int ELAPSEDCYCLES_INPUT = 1;
 		final float EXCESS_CYCLE_INPUT = 2.0F;
 		final float MILLS_PER_CYCLE_INPUT = 25.5F;
+		
+		// Inserting Inputs
 		clock.setElapsedCycles(ELAPSEDCYCLES_INPUT);
 		clock.setExcessCycles(EXCESS_CYCLE_INPUT);
 		clock.setMillsPerCycle(MILLS_PER_CYCLE_INPUT);
-		clock.setLastUpdate(Clock.FIXED_TIME_FOR_TESTING - 2);
-		
+		clock.setLastUpdate(Clock.FIXED_CURRENT_TIME_FOR_TESTING - 2);
 		clock.setPaused(true);    											// Tests for the case where the game is paused
 		clock.update();    		  											// Method being tested
+		
+		// Asserting outputs
 		assertEquals(clock.getElapsedCycles(), ELAPSEDCYCLES_INPUT);		// Shouldn't change
 		assertEquals(clock.getExcessCycles(), EXCESS_CYCLE_INPUT);			// Shouldn't change
-		assertEquals(clock.getLastUpdate(), Clock.FIXED_TIME_FOR_TESTING);	// Should change the current time
+		assertEquals(clock.getLastUpdate(), Clock.FIXED_CURRENT_TIME_FOR_TESTING);	// Should change the current time
 	}
 	
 	@Test
-	void testUpdateWhenGameIsNotPaused() {
+	void testUpdateWhenGameIsNotPaused_TR2() {
 		final int ELAPSEDCYCLES_INPUT = 1;
 		final float EXCESS_CYCLE_INPUT = 2.0F;
 		final float MILLS_PER_CYCLE_INPUT = 25.5F;
+		
 		clock.setElapsedCycles(ELAPSEDCYCLES_INPUT);
 		clock.setExcessCycles(EXCESS_CYCLE_INPUT);
 		clock.setMillsPerCycle(MILLS_PER_CYCLE_INPUT);
-		clock.setLastUpdate(Clock.FIXED_TIME_FOR_TESTING - 2);
-		
+		clock.setLastUpdate(Clock.FIXED_CURRENT_TIME_FOR_TESTING - 2);
 		clock.setPaused(false);													// Tests update for the case where the game is not paused
 		clock.update();    		  												// Method being tested
-		assertEquals(clock.getElapsedCycles(), ELAPSEDCYCLES_INPUT);			// Should not change this time
-		assertEquals(clock.getExcessCycles(), 4);								// Should change to 4
-		assertEquals(clock.getLastUpdate(), Clock.FIXED_TIME_FOR_TESTING);		// Should change the current time
+		
+		final float EXPECTED_EXCESSCYCLE = 4F;
+		
+		assertEquals(clock.getElapsedCycles(), ELAPSEDCYCLES_INPUT);					// Should not change this time
+		assertEquals(clock.getExcessCycles(), EXPECTED_EXCESSCYCLE);					// Should change to 4
+		assertEquals(clock.getLastUpdate(), Clock.FIXED_CURRENT_TIME_FOR_TESTING);		// Should change the current time
 	}
 	
 	@Test
@@ -146,4 +154,5 @@ class ClockTest {
 		Clock.USE_FIXED_TIME_FOR_TESTING = false;
 		assertEquals(true,Clock.getCurrentTime() - System.nanoTime() < 2L);
 	}
+	
 }

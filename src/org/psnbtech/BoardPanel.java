@@ -222,14 +222,14 @@ public class BoardPanel extends JPanel {
 	 * @param line The row to check.
 	 * @return Whether or not this row is full.
 	 */
-	private boolean checkLine(int line) {
+	public boolean checkLine(int line) {
 		/*
 		 * Iterate through every column in this row. If any of them are
 		 * empty, then the row is not full.
 		 */
 		for(int col = 0; col < COL_COUNT; col++) {
 			if(!isOccupied(col, line)) {
-				return false; // Should return false ?
+				return false; 							// Bug Fix
 			}
 		}
 		

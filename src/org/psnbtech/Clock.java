@@ -9,7 +9,7 @@ package org.psnbtech;
 public class Clock {
 	
 	public static boolean USE_FIXED_TIME_FOR_TESTING = false;
-	public static long FIXED_TIME_FOR_TESTING = 30714185;
+	public static long FIXED_CURRENT_TIME_FOR_TESTING = 30714185;
 	
 	/**
 	 * The number of milliseconds that make up one cycle.
@@ -138,7 +138,7 @@ public class Clock {
 	 * @return The current time in milliseconds.
 	 */
 	public static final long getCurrentTime() {
-		return USE_FIXED_TIME_FOR_TESTING ? FIXED_TIME_FOR_TESTING :(System.nanoTime() / 1000000L);
+		return USE_FIXED_TIME_FOR_TESTING ? FIXED_CURRENT_TIME_FOR_TESTING :(System.nanoTime() / 1000000L);
 	}
 	
 	/**

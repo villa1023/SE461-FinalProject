@@ -108,68 +108,116 @@ class TetrisTest {
 		assertTrue(tetris.getBoardPanel().isDisplayable());
 		assertTrue(tetris.getSidePanel().isDisplayable());
 	}
+
 	
 	@Test
 	void testUpdateGame_TR1() {
+		// Inputs
+		final int CURRENT_SCORE = 0;
+		final int CURRENT_COL = 0;
 		final int CURRENT_ROW = 3;
-		final int NEW_ROW = CURRENT_ROW + 1;
+		final float CURRENT_SPEED = 2.0F;
+		final int CURRENT_LEVEL = 0;
 		
+		// Expected Outputs
+		final int EXPECTED_ROW = CURRENT_ROW + 1;
+		final float EXPECTED_SPEED = 2.0F;
+		final int EXPECTED_LEVEL = 0;
+		final int EXPECTED_DOPCOLDOWN = 0;
+		final int EXPECTED_SCORE = 0;
+		
+		// Inserting inputs
+		tetris.setScore(CURRENT_SCORE);
+		tetris.setCurrentCol(CURRENT_COL);
 		tetris.setCurrentRow(CURRENT_ROW);
+		tetris.setGameSpeed(CURRENT_SPEED);
+		tetris.setLevel(CURRENT_LEVEL);
+		
+		// Testing the method
 		tetris.updateGame();
 		
-		assertEquals(tetris.getPieceRow(), NEW_ROW);	
+		// Asserting outputs
+		assertEquals(tetris.getScore(), EXPECTED_SCORE);
+		assertEquals(tetris.getDropCoolDown(), EXPECTED_DOPCOLDOWN);
+		assertEquals(tetris.getLevel(), EXPECTED_LEVEL);
+		assertEquals(tetris.getPieceRow(), EXPECTED_ROW);
+		assertEquals(tetris.getGameSpeed(), EXPECTED_SPEED);
+		
 	}
 	
 	@Test
 	void testUpdateGame_TR2() {
-		final int INITIAL_SCORE = 0;
+		
+		// Preparing Inputs
+		final int CURRENT_SCORE = 0;
 		final int CURRENT_ROW = 20;
 		final int CURRENT_COL = 4;
-		final float INITIAL_SPEED = 2F;
+		final float CURRENT_SPEED = 2F;
+		final int CURRENT_LEVEL = 0;
 		
-		final float NEW_SPEED = INITIAL_SPEED + 0.035F;
-		final int NEW_LEVEL = (int)(NEW_SPEED * 1.70F);
-		
-		tetris.setScore(INITIAL_SCORE);
+		// Inserting Inputs
+		tetris.setScore(CURRENT_SCORE);
 		tetris.setCurrentRow(CURRENT_ROW);
 		tetris.setCurrentCol(CURRENT_COL);
-		tetris.setGameSpeed(INITIAL_SPEED);
+		tetris.setGameSpeed(CURRENT_SPEED);
+		tetris.setLevel(CURRENT_LEVEL);
 		
+		// Expected Outputs
+		final int EXPECTED_ROW = 0;
+		final float EXPECTED_SPEED = CURRENT_SPEED + 0.035F;
+		final int EXPECTED_LEVEL = (int)(EXPECTED_SPEED * 1.70F);
+		final int EXPECTED_DROPCOLDOWN = 25;
+		final int EXPECTED_SCORE = 0;
+		
+		// Testing the method
 		tetris.updateGame();
 		
-		assertEquals(tetris.getGameSpeed(), NEW_SPEED);   				// Speed should increase by 0.0035
-		assertEquals(tetris.getDropCoolDown(), 25);
-		assertEquals(tetris.getLevel(), NEW_LEVEL);
-		assertEquals(tetris.getScore(), INITIAL_SCORE);   				// Score should not change
+		// Asserting outputs
+		assertEquals(tetris.getGameSpeed(), EXPECTED_SPEED);   				// Speed should increase by 0.0035
+		assertEquals(tetris.getDropCoolDown(), EXPECTED_DROPCOLDOWN);
+		assertEquals(tetris.getLevel(), EXPECTED_LEVEL);
+		assertEquals(tetris.getPieceRow(), EXPECTED_ROW);
+		assertEquals(tetris.getScore(), EXPECTED_SCORE);   						// Score should not change
 	}
 	
 	@Test
 	void testUpdateGame_TR3() {
-		final int INITIAL_SCORE = 0;
-		final int BOTTOM_ROW = 20;
+		
+		// Preparing Inputs
+		final int CURRENT_SCORE = 0;
+		final int CURRENT_ROW = 20;
 		final int CURRENT_COL = 7;
-		final float INITIAL_SPEED = 2F;
+		final float CURRENT_SPEED = 2F;
+		final int CURRENT_LEVEL = 0;
 		
-		final float NEW_SPEED = INITIAL_SPEED + 0.035F;
-		final int NEW_LEVEL = (int)(NEW_SPEED * 1.70F);
-		final int NEW_SCORE = INITIAL_SCORE + 100;
+		// Filling up bottom row to have a cleared line case
+		tetris.getBoardPanel().addPiece(TileType.TypeJ, 0, CURRENT_ROW, 0);
+		tetris.getBoardPanel().addPiece(TileType.TypeI, 3, CURRENT_ROW, 0);
 		
-		// Filling up bottom row to clear a cleared line
-		tetris.getBoardPanel().addPiece(TileType.TypeJ, 0, BOTTOM_ROW, 0);
-		tetris.getBoardPanel().addPiece(TileType.TypeI, 3, BOTTOM_ROW, 0);
-
+		// Inserting Inputs
 		tetris.setCurrentType(TileType.TypeJ);
-		tetris.setScore(INITIAL_SCORE);
-		tetris.setCurrentRow(BOTTOM_ROW);
+		tetris.setScore(CURRENT_SCORE);
+		tetris.setCurrentRow(CURRENT_ROW);
 		tetris.setCurrentCol(CURRENT_COL);
-		tetris.setGameSpeed(INITIAL_SPEED);
+		tetris.setGameSpeed(CURRENT_SPEED);
+		tetris.setLevel(CURRENT_LEVEL);
 		
+		// Inserting Inputs
+		final int EXPECTED_ROW = 0;
+		final float EXPECTED_SPEED = CURRENT_SPEED + 0.035F;
+		final int EXPECTED_LEVEL = (int)(CURRENT_SPEED * 1.70F);
+		final int EXPECTED_SCORE = CURRENT_SCORE + 100;
+		final int EXPECTED_DROPCOLDOWN = 25;
+		
+		// Testing the method
 		tetris.updateGame();
-	
-		assertEquals(tetris.getGameSpeed(), NEW_SPEED);   				
-		assertEquals(tetris.getDropCoolDown(), 25);
-		assertEquals(tetris.getLevel(), NEW_LEVEL);
-		assertEquals(tetris.getScore(), NEW_SCORE);   				    // Score should increase by 100
+		
+		// Asserting outputs
+		assertEquals(tetris.getGameSpeed(), EXPECTED_SPEED);   				
+		assertEquals(tetris.getDropCoolDown(), EXPECTED_DROPCOLDOWN);
+		assertEquals(tetris.getLevel(), EXPECTED_LEVEL);
+		assertEquals(tetris.getPieceRow(), EXPECTED_ROW);
+		assertEquals(tetris.getScore(), EXPECTED_SCORE);   				    // Score should increase by 100
 	}
 	
 	@Test
