@@ -229,7 +229,7 @@ public class BoardPanel extends JPanel {
 		 */
 		for(int col = 0; col < COL_COUNT; col++) {
 			if(!isOccupied(col, line)) {
-				return false; 							// Bug Fix
+				return true; 							// Bug Fix
 			}
 		}
 		

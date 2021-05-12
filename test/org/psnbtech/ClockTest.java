@@ -120,12 +120,12 @@ class ClockTest {
 		clock.setExcessCycles(EXCESS_CYCLE_INPUT);
 		clock.setMillsPerCycle(MILLS_PER_CYCLE_INPUT);
 		clock.setLastUpdate(Clock.FIXED_CURRENT_TIME_FOR_TESTING - 2);
-		clock.setPaused(true);    											// Tests for the case where the game is paused
-		clock.update();    		  											// Method being tested
+		clock.setPaused(true);    													// Tests for the case where the game is paused
+		clock.update();    		  													// Method being tested
 		
 		// Asserting outputs
-		assertEquals(clock.getElapsedCycles(), ELAPSEDCYCLES_INPUT);		// Shouldn't change
-		assertEquals(clock.getExcessCycles(), EXCESS_CYCLE_INPUT);			// Shouldn't change
+		assertEquals(clock.getElapsedCycles(), ELAPSEDCYCLES_INPUT);				// Shouldn't change
+		assertEquals(clock.getExcessCycles(), EXCESS_CYCLE_INPUT);					// Shouldn't change
 		assertEquals(clock.getLastUpdate(), Clock.FIXED_CURRENT_TIME_FOR_TESTING);	// Should change the current time
 	}
 	

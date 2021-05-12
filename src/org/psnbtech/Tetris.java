@@ -328,7 +328,6 @@ public class Tetris extends JFrame {
 		/*
 		 * Check to see if the piece's position can move down to the next row.
 		 */
-		System.out.println(currentCol + "    " + "     " + currentRow);
 		if(board.isValidAndEmpty(currentType, currentCol, currentRow + 1, currentRotation)) {
 			//Increment the current row if it's safe to do so.
 			currentRow++;
@@ -651,7 +650,7 @@ public class Tetris extends JFrame {
 	 * @param args Unused.
 	 */
 	public static void main(String[] args) {
-		//Tetris tetris = new Tetris();
-		//tetris.startGame();
+		Tetris tetris = new Tetris();
+		tetris.startGame();
 	}
 }

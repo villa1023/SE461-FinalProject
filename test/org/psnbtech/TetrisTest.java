@@ -177,6 +177,7 @@ class TetrisTest {
 		assertEquals(tetris.getDropCoolDown(), EXPECTED_DROPCOLDOWN);
 		assertEquals(tetris.getLevel(), EXPECTED_LEVEL);
 		assertEquals(tetris.getPieceRow(), EXPECTED_ROW);
+		System.out.println(tetris.getScore());
 		assertEquals(tetris.getScore(), EXPECTED_SCORE);   						// Score should not change
 	}
 	
@@ -217,6 +218,7 @@ class TetrisTest {
 		assertEquals(tetris.getDropCoolDown(), EXPECTED_DROPCOLDOWN);
 		assertEquals(tetris.getLevel(), EXPECTED_LEVEL);
 		assertEquals(tetris.getPieceRow(), EXPECTED_ROW);
+		System.out.println(tetris.getScore());
 		assertEquals(tetris.getScore(), EXPECTED_SCORE);   				    // Score should increase by 100
 	}
 	
